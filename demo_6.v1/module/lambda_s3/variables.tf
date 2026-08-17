@@ -10,6 +10,6 @@ variable "lambda_name" {
 
 
 variable "code_archive" {
-  description = "(Required) lambda code to deploy"
+  description = "(Required) lambda code to deploy. \n chemin vers l'archive ZIP contenant le code Python déployé dans la fonction Lambda"
   type = string
 }

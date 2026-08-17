@@ -1,3 +1,11 @@
+/**
+ * # Module lambda_s3
+ *
+ * Crée un bucket S3 et une fonction AWS Lambda.
+ * Configure les permissions IAM nécessaires.
+ * Déclenche automatiquement la Lambda lorsqu'un fichier est ajouté dans `input/`.
+ */
+
 resource "random_string" "random" {
   special = false
   length = 10

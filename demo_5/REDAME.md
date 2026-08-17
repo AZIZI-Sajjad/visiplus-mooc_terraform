@@ -177,3 +177,62 @@ Résultat attendu :
 * Tous les fichiers locaux créés par Terraform sont supprimés.
 * Tous les objets S3 créés dans `s3_atelier_3` par cette configuration sont supprimés.
 * Les ressources `random_string` sont également détruites.
+
+
+
+```bash
+# ============================================
+# LA BOUCLE FOR - EXPLICATION SIMPLIFIÉE
+# ============================================
+
+# 1. Je fabrique une MAP (dictionnaire)
+# -------------------------------------
+{ for ... : X => Y }
+#     ↑          ↑
+#   boucle    clé => valeur
+
+# 2. Je sors les éléments de la liste "list_of_files"
+# ---------------------------------------------------
+for key, value in var.list_of_files :
+#   ↑       ↑
+#  index   valeur ("file_first", "file_second"...)
+
+# 3. Je crée une MAP avec :
+# -------------------------
+value => "${value}-${random_string.random.result}"
+#   ↑          ↑
+#  LA CLÉ    LA VALEUR
+#  
+#   - Les CLÉS = les "value" de la boucle for
+#   - Les VALEURS = les "value" + la valeur de Random
+
+# ============================================
+# EXEMPLE CONCRET
+# ============================================
+
+# Entrée :
+#   var.list_of_files = ["file_first", "file_second", "file_third"]
+#   random_string.random.result = "1yug0n6wz0"
+
+# Itération 1 :
+#   key=0, value="file_first"
+#   "file_first" => "file_first-1yug0n6wz0"
+
+# Itération 2 :
+#   key=1, value="file_second"
+#   "file_second" => "file_second-1yug0n6wz0"
+
+# Itération 3 :
+#   key=2, value="file_third"
+#   "file_third" => "file_third-1yug0n6wz0"
+
+# Résultat final :
+# -----------------
+# locals {
+#   files_names = {
+#     "file_first"  = "file_first-1yug0n6wz0"
+#     "file_second" = "file_second-1yug0n6wz0"
+#     "file_third"  = "file_third-1yug0n6wz0"
+#   }
+# }
+```

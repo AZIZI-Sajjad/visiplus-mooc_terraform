@@ -131,3 +131,47 @@ cat file_1.txt
 ```
 
 Cela illustre le principe fondamental de Terraform : il tente toujours de ramener l’infrastructure (ici, les fichiers) à l’état décrit dans la configuration.
+
+
+# ANNEXE : 
+```bash
+# file_1.txt
+terraform init
+```
+![alt text](images/image.png)
+
+```bash
+terraform plan
+```
+![alt text](images/image-1.png)
+
+```bash
+terraform apply -auto-approve
+ls -al file_1.txt
+cat file_1.txt
+```
+![alt text](images/image-2.png)
+
+
+```bash
+# file_2.txt
+terraform apply -auto-approve
+ls -al directory/file_2.txt
+cat directory/file_2.txt
+```
+![alt text](images/image-3.png)
+
+
+```bash
+# supprimer file_1.txt & directory/file_2.txt, puis relancer terraform apply
+rm file_1.txt
+rm -rf directory/file_2.txt
+terraform apply -auto-approve
+ls -al file_1.txt
+cat file_1.txt
+ls -al directory/file_2.txt
+cat directory/file_2.txt
+```
+![alt text](images/image-3.png)
+
+![alt text](images/image-4.png)

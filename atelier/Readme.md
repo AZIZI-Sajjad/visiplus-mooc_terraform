@@ -58,10 +58,24 @@ Structure du projet
         dossier_cible: "../../code/front"
 ```
 
+5.1. Tester la syntax du code Ansible
+```bash
+cd atelier/infrastructure/ansible
+ ansible-playbook create_front_and_backend_archives.yml --syntax-check
+  ansible-playbook create_front_and_backend_archives.yml -check
+```
+
 6. Générez les archives backend et front avec la commande `ansible-playbook`.
 
 ```bash
 ansible-playbook atelier/infrastructure/ansible/create_front_and_backend_archives.yml -e version=${{ env.VERSION }}
+```
+
+6.1. Tester la syntax du code Ansible
+```bash
+cd atelier/infrastructure/ansible
+ ansible-playbook unzip_archive.yml --syntax-check
+  ansible-playbook unzip_archive.yml -check
 ```
 
 7. Dans le fichier **unzip_archive**, ajoutez une tâche pour décompresser l'archive du front :
