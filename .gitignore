@@ -238,3 +238,5 @@ client_secrets.json
 upload_video-youtube.py-oauth2.json
 **.json
 .claude
+*aws.tfvars
+.terraform
