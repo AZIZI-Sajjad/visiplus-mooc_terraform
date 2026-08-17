@@ -103,6 +103,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
+          # terraform_version: '1.6.0' # gpg key expired
           terraform_version: '1.6.0'
 
       - name: Terraform Init
