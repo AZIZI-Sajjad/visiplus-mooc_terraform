@@ -226,7 +226,7 @@ scripts/split-pdf-chapters/**/*.pdf
 # scripts -> split-pdf-chapters
 *.json
 **/**/*.env*
-test/
+# test/
 test-no-commit-to-git/
 # **/tests-no-commit-to-git/**
 .vscode*
