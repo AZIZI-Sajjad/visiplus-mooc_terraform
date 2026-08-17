@@ -127,6 +127,33 @@ valeur qui vous est propre.
    - **source_code_hash** : `filebase64sha256("../../build/backend-${var.version_backend}.zip")`
 
 ```terraform
+#TODO : Créer un Bucket S3 pour héberger le front en mode site statique
+resource "aws_s3_bucket" "front_bucket" {
+  bucket = "s3-${local.component_name}"
+
+ force_destroy = true
+}
+```
+
+```terraform
+#TODO : Rattacher au bucket s3
+resource "aws_s3_bucket_public_access_block" "front_bucket_block" {
+  bucket = aws_s3_bucket.front_bucket.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+```
+
+
+```terraform
+
+```
+
+```terraform
+# Création de la fonction Lambda :
 resource "aws_lambda_function" "proverb_lambda" {
   function_name    = "lambda-${local.component_name}"
   role             = aws_iam_role.lambda_exec.arn
@@ -136,6 +163,7 @@ resource "aws_lambda_function" "proverb_lambda" {
   source_code_hash = filebase64sha256("../../build/backend-${var.version_backend}.zip")
 }
 ```
+
 
 6. Appelez le module **apigateway**.
 
