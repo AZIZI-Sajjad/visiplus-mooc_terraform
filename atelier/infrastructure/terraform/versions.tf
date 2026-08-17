@@ -1,5 +1,6 @@
 terraform {
-  required_version = ">=1.6.0"
+  required_version = ">=1.9.0"
+  # required_version = ">=1.6.0" # gpg key expired
 
   required_providers {
     aws = {
