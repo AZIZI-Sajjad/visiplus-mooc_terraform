@@ -27,7 +27,7 @@ jobs:
       - name: Run Python tests
         working-directory: atelier/code/test
         run: |
-          PYTHONPATH=.. pytest .
+          pytest .
 
       - name: Set version variable
         id: version
@@ -60,6 +60,7 @@ jobs:
         with:
           name: front-zip-${{ env.VERSION }}
           path: atelier/build/front-${{ env.VERSION }}.zip
+
 
   cd:
     runs-on: ubuntu-latest
@@ -103,8 +104,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          # terraform_version: '1.6.0' # gpg key expired
-          terraform_version: '1.9.0'
+          terraform_version: '1.3.9'
 
       - name: Terraform Init
         working-directory: atelier/infrastructure/terraform
