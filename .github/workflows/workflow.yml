@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - '*'
-  # Trigger manuel via l'interface web "Github Actions"
-  workflow_dispatch:
 
 jobs:
   ci:
