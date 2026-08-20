@@ -49,6 +49,34 @@ Résultat attendu après `terraform apply` :
 
 ---
 
+## 2.1 Créer un fichier `file_3.txt` dans le répertoire `directory` avec le contenu "THIS IS FILE 2"
+
+
+Ajoutez ensuite une ressource pour `file_3.txt` dans `main.tf` :
+
+```hcl
+resource "local_file" "file_3" {
+  filename = "${path.module}/directory/file_3.txt"
+  content  = <<-EOF
+  THIS IS FILE 3 LINE 1
+  THIS IS FILE 3 LINE 2
+  THIS IS FILE 3 LINE 3
+  EOF
+}
+```
+
+Résultat attendu après `terraform apply` :
+
+* Un fichier `file_3.txt` est créé dans le sous-répertoire `directory`.
+* Son contenu est exactement :
+```
+THIS IS FILE 3 LINE 1
+THIS IS FILE 3 LINE 2
+THIS IS FILE 3 LINE 3
+```
+
+---
+
 ## 3. Exécuter la commande `terraform plan`
 
 Dans le répertoire de votre projet Terraform (là où se trouve `main.tf`), exécutez :
@@ -64,7 +92,7 @@ Ce que Terraform affiche typiquement :
   * `local_file.file_1`
   * `local_file.file_2`
 * Vous verrez un résumé du type :
-  `Plan: 2 to add, 0 to change, 0 to destroy.`
+  `Plan: 3 to add, 0 to change, 0 to destroy.`
 
 Aucun changement n’est encore appliqué à votre système de fichiers à cette étape.
 
@@ -134,11 +162,13 @@ Cela illustre le principe fondamental de Terraform : il tente toujours de ramene
 
 
 # ANNEXE : 
+
+
 ```bash
-# file_1.txt
-terraform init
+terraform plan
 ```
 ![alt text](images/image.png)
+
 
 ```bash
 terraform plan
@@ -147,31 +177,40 @@ terraform plan
 
 ```bash
 terraform apply -auto-approve
-ls -al file_1.txt
-cat file_1.txt
 ```
 ![alt text](images/image-2.png)
 
-
 ```bash
-# file_2.txt
-terraform apply -auto-approve
-ls -al directory/file_2.txt
-cat directory/file_2.txt
+ls -al file_1.txt
+cat file_1.txt
 ```
 ![alt text](images/image-3.png)
 
+
+```bash
+# file_2.txt & file_3.txt
+cat directory/file_2.txt
+cat directory/file_3.txt
+ls -al directory/file_2.txt
+ls -al directory/file_3.txt
+```
+![alt text](images/image-4.png)
 
 ```bash
 # supprimer file_1.txt & directory/file_2.txt, puis relancer terraform apply
 rm file_1.txt
-rm -rf directory/file_2.txt
+rm -rf directory/file_3.txt
 terraform apply -auto-approve
 ls -al file_1.txt
 cat file_1.txt
-ls -al directory/file_2.txt
-cat directory/file_2.txt
+ls -al directory/file_3.txt
+cat directory/file_3.txt
 ```
-![alt text](images/image-3.png)
+![alt text](images/image-5.png)
+![alt text](images/image-6.png)
 
-![alt text](images/image-4.png)
+
+```bash
+terraform destroy -auto-approve
+```
+![alt text](images/image-7.png)
